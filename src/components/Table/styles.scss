@@ -1,0 +1,61 @@
+.table {
+  flex: 1;
+  border: 1px solid black;
+
+  &__row {
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__cell {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 5px;
+
+    span {
+      text-align: center;
+    }
+  }
+  
+  &__flag {
+    max-height: 32px;
+  }
+
+  .pagination {
+    display: flex;
+
+    &__item {
+      color: black;
+      background-color: transparent;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background-color .3s;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover:not(.active):not([disabled]) {
+        background-color: #ddd;
+      }
+
+      &.active {
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      &[disabled] {
+        cursor: not-allowed;
+        color: grey;
+      }
+    }
+  }
+}

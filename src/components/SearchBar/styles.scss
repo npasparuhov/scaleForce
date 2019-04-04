@@ -1,0 +1,82 @@
+//Most of the css was stolen from the real site ...
+
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__field {
+    padding: 12px 40px 12px 10px;
+  }
+
+  &__no-results {
+    padding: 10px 9px;
+    color: #989898;
+    font-style: italic;
+    font-size: 14px;
+    background-color: #fff;
+  }
+
+  &__suggestions {
+    position: absolute;
+    top: 100%;
+    left: 1px;
+    right: 1px;
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.4);
+
+    &-item {
+      color: #989898;
+      padding: 10px 9px;
+      cursor: pointer;
+      border-radius: 2px;
+      border-bottom: 1px solid #eaeaea;
+      background-color: #fff;
+
+      &:hover {
+        background-color: #dff6ff;
+      }
+
+      .flag {
+        max-height: 32px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+
+      .info {
+        display: inline-block;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #222;
+        font-size: 14px;
+        padding-top: 5px;
+
+        &__country {
+          color: gray;
+          display: block;
+          font-size: 12px;
+        }
+      }
+
+    }
+  }
+
+  .loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
