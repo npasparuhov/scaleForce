@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Cell from './Cell';
+import CountryDetails from '../CountryDetails/CountryDetails';
+import { showPopUp } from '../PopUp/PopUp';
+import useMouseLoader from '../../customHooks/MouseLoader';
 
+const Row = ({ row, columns, id }) => {
+  const handleClick = () => showPopUp(CountryDetails({ data: row }));
+  const mouseLoader = useMouseLoader(handleClick);
 
-const Row = ({ row, columns }) => (
-  <div className='table__row'>
-    {columns.map(cell => <Cell key={cell.key} cell={cell} row={row} />)}
-  </div>
-);
+  return (
+    <div className='table__row' id={id} {...mouseLoader}>
+      {columns.map(cell => <Cell key={cell.key} cell={cell} row={row} />)}
+    </div>
+  );
+};
 
 Row.propTypes = {
   columns: PropTypes.array.isRequired,

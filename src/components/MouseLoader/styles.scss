@@ -1,0 +1,15 @@
+.pie-wrapper {
+  position: absolute;
+  z-index: 1000;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+
+  .pie {
+    border-radius: 0 100% 100% 0 / 50%;
+    display: block;
+    height: 100%;
+    margin-left: 50%;
+    transform-origin: left;
+  }
+}

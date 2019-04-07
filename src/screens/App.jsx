@@ -1,18 +1,18 @@
 import React from 'react';
 import SearchBar from '../components/SearchBar/SearchBar';
 import Table from '../components/Table/Table';
-import { getCountryByName } from '../services/restCountries';
+import PopUp from '../components/PopUp/PopUp';
+import Suggestion from '../components/SearchBar/Suggestion';
+import { getCountryByName, getAllCountries } from '../services/restCountries';
+import MouseLoader from '../components/MouseLoader/MouseLoader';
 import './App.scss';
 
 const columns = [{
   key: 'flag',
   width: 80,
-  component: cell => <img className='table__flag' src={cell} alt={cell} />
+  component: cell => <img className='flag' src={cell} alt={cell} />
 }, {
   key: 'name'
-}, {
-  key: 'cioc',
-  width: 60
 }, {
   key: 'capital'
 }, {
@@ -25,13 +25,16 @@ const columns = [{
   width: 100
 }, {
   key: 'numericCode',
+  headerName: 'code',
   width: 60
 }];
 
 const App = () => (
   <div className='App'>
-    <SearchBar fetchMethod={getCountryByName} maxSuggestions={6} />
-    <Table url='/all' accessors={['data']} columns={columns} />
+    <MouseLoader />
+    <SearchBar fetchMethod={getCountryByName} maxSuggestions={10} renderSuggestion={Suggestion} />
+    <Table fetchMethod={getAllCountries} columns={columns} />
+    <PopUp />
   </div>
 );
 

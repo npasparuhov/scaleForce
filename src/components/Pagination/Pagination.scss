@@ -1,0 +1,49 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(224, 224, 224, 1);
+  padding: 10px 15px;
+
+  &__container {
+    display: flex;
+  }
+
+  &__item {
+    color: rgba(0, 0, 0, 0.87);
+    width: 40px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover:not(.active):not([disabled]):not(.dots) {
+      background-color: #ddd;
+    }
+
+    &.active {
+      background-color: #3498db;
+      color: white;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      color: grey;
+    }
+
+    &.dots {
+      cursor: default;
+      width: 20px;
+      text-align: center;
+    }
+  }
+
+  select:focus {
+    outline: none;
+  }
+}

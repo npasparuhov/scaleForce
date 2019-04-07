@@ -32,6 +32,12 @@ export default (fetchMethod, max) => {
     else changeMatches([], input);
   };
 
+  const handleSelect = ({ name }) => {
+    oldValue = name;
+    changeValue(name);
+    setIsOpen(false);
+  };
+
   return {
     locationInput: {
       value,
@@ -39,6 +45,7 @@ export default (fetchMethod, max) => {
       onFocus: () => setIsOpen(value.length > 0)
     },
     hideSuggestions: () => setIsOpen(false),
+    handleSelect: handleSelect,
     isOpen,
     matches,
     loading: value !== oldValue && value.length > 0

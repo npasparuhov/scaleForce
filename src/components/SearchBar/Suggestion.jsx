@@ -1,21 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Interweave from 'interweave';
+import CountryDetails from '../CountryDetails/CountryDetails';
+import { showPopUp } from '../PopUp/PopUp';
 
 const Suggestion = props => {
-  const { input, name, flag, region, subregion, cioc, hideSuggestions } = props;
+  const { input, name, flag, region, subregion, cioc, onSelect, tabIndex } = props;
 
-  const handleClick = country => {
-    console.log(country);
-    // hideSuggestions();
+  const handleClick = () => {
+    const country = { ...props };
+    delete country.input;
+    delete country.onSelect;
+    showPopUp(CountryDetails({ data: country }));
+    onSelect(country);
   };
 
   return (
-    <div className='search-bar__suggestions-item' onClick={() => handleClick(props)}>
+    <div tabIndex={tabIndex} className='search-bar__suggestions-item' onClick={handleClick}>
       <img className='flag' src={flag} alt={flag} />
       <div className='info'>
         <Interweave content={formatLabel(name, input)} />
-        <span className='info__country'>{[region, subregion, cioc].filter(Boolean).join(', ')}</span>
+        <span className='info__country'>
+          <Interweave
+            content={
+              [region, subregion, cioc]
+                .map(el => formatLabel(el, input))
+                .filter(Boolean)
+                .join(', ')}
+          />
+        </span>
       </div>
     </div>
   );
@@ -24,15 +37,15 @@ const Suggestion = props => {
 Suggestion.propTypes = {
   input: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  flag: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  flag: PropTypes.string,
   cioc: PropTypes.string,
   region: PropTypes.string,
   subregion: PropTypes.string,
-  hideSuggestions: PropTypes.func.isRequired,
 };
 
 export default Suggestion;
 
 
 const formatLabel = (label, value) =>
-  label.replace(new RegExp(value, 'ig'), '<b>$&</b>');
+  (label ? label.replace(new RegExp(value, 'ig'), '<b>$&</b>') : null);

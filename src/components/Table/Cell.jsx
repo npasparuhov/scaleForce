@@ -7,7 +7,6 @@ const Cell = ({ row, cell }) => {
 
   return (
     <div
-      key={cell.key}
       className='table__cell'
       style={{ flex: `0 1 ${cell.width}px` }}>
       {cell.component ?

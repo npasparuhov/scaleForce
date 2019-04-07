@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Suggestion from './Suggestion';
 import useSearchBar from '../../customHooks/SearchBar';
 import './styles.scss';
 
-const SearchBar = ({ fetchMethod, maxSuggestions }) => {
+const SearchBar = ({ fetchMethod, maxSuggestions, renderSuggestion: Suggestion }) => {
   const {
     locationInput,
     isOpen,
     matches,
     loading,
-    hideSuggestions } = useSearchBar(fetchMethod, maxSuggestions);
+    hideSuggestions,
+    handleSelect } = useSearchBar(fetchMethod, maxSuggestions);
 
   //We need to put the call of hideMethod inside callbackQueue
   //The flow will be -> onBlur call - hideMethod in callbackQueue - stack get empty -
@@ -19,14 +19,14 @@ const SearchBar = ({ fetchMethod, maxSuggestions }) => {
   //element will be different from the searchBar container
   const handleBlur = ({ currentTarget: target }) => {
     setTimeout(() => {
-      console.log(target);
-      console.log(document.activeElement);
       if (!target.contains(document.activeElement)) hideSuggestions();
     }, 100);
   };
 
+  const onSelect = country => handleSelect(country);
+
   return (
-    <div className='search-bar' onBlur={handleBlur}>
+    <div className='search-bar' onBlur={handleBlur} tabIndex='1'>
       {loading && <div className='loader' />}
       <input
         {...locationInput}
@@ -34,12 +34,12 @@ const SearchBar = ({ fetchMethod, maxSuggestions }) => {
         placeholder='Country name' />
       {isOpen && !loading && (
         <div className='search-bar__suggestions'>
-          {matches.length ? matches.map(el =>
+          {matches.length ? matches.map((el, i) =>
             <Suggestion
               key={el.name}
               {...el}
               input={locationInput.value}
-              hideSuggestions={hideSuggestions} />) :
+              onSelect={onSelect} />) :
             <div className='search-bar__no-results'>No results found</div>}
         </div>)}
     </div>
